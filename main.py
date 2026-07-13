@@ -23,8 +23,10 @@ def greet(): #Define a function to return a greeting message
     return "Hello,Welcome to the stock tracker app!"
 
 def products(): #Define a function to return a list of products
-    #postgress bt(a called stuff goes here 
     return products_list 
+
+def error_404(): #Define a function to return a 404 error message
+    return "Product not found"
 
 
 @app.get("/")   #GET  / -- home page ma 
@@ -36,4 +38,15 @@ def list_products():
     return products()
 
 
+@app.get("/products/{product_id}")  
+def get_product_by_id(product_id: int): #Define a function to get a product by its ID
+    for product in products_list:
+        if product.id == product_id:
+            return product
+    return error_404()
 
+
+@app.post("/products")  #POST /products -- create a new product
+def create_product(product: product):
+    products_list.append(product)
+    return product
