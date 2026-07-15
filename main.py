@@ -50,3 +50,24 @@ def get_product_by_id(product_id: int): #Define a function to get a product by i
 def create_product(product: product):
     products_list.append(product)
     return product
+
+
+#updating a product
+@app.put("/products/{product_id}")  #PUT /products/{product_id} -- update a product by its ID
+def update_product(product_id: int, updated_product: product):
+    for i in range(len(products_list)):
+        if products_list[i].id == product_id:
+            products_list[i] = updated_product
+            return updated_product
+    return error_404()
+
+
+#delete a procudt 
+@app.delete("/products/{product_id}")  #DELETE /products/{product_id} -- delete a product by its ID
+def delete_product(product_id: int):
+    for i in range (len(products_list)):
+        if products_list[i].id == product_id:
+            deleted_product = products_list.pop(i)
+            return deleted_product
+    return error_404()
+
